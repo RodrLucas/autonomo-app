@@ -4,49 +4,83 @@ import { useForm } from "react-hook-form";
 
 
 export default function SignUpPage() {
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors }, getValues, setError } = useForm();
+
+    const onSubmit = () => {
+        const { password, confirmPassword } = getValues();
+        if (password !== confirmPassword) {
+            setError('confirmPassword', { type: 'validate' });
+            return;
+        }
+
+        console.log('Cadastro realizado com sucesso');
+    }
 
     return (
+        <div className="min-h-screen flex justify-center items-center">
+            <div className="flex flex-col md:max-w-[30rem] sm:w-full p-5 h-auto rounded shadow-md" >
+                <h1 className="text-3xl font-bold text-center mb-5">Crie sua conta</h1>
 
-        <div
-            className="bg-slate-200 flex flex-col max-w-3xl p-5 w-full h-2/3"
-            style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                borderRadius: "10px",
-            }}
+                <form onSubmit={handleSubmit(onSubmit)} >
+                    <div className="flex flex-col mb-3">
+                        <label htmlFor="name" className="mb-2">Name</label>
+                        <input
+                            className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-500 mb-2"
+                            type="name"
+                            id="name"
+                            {...register("name", { required: true, minLength: 5 })}
+                        />
+                        {errors.name?.type === 'required' && <span className="text-red-600 text-sm">Esse campo é obrigatório</span>}
+                        {errors.name?.type === 'minLength' && <span className="text-red-600 text-sm">O nome deve ter no mínimo 5 caracteres</span>}
+                    </div>
+                    <div className="flex flex-col mb-3">
+                        <label htmlFor="email" className="mb-2">Email</label>
+                        <input
+                            className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-500 mb-2"
+                            type="email"
+                            id="email"
+                            {...register("email", { required: true, maxLength: 30, pattern: /^\S+@\S+$/i })}
+                        />
+                        {errors.email?.type === 'required' && <span className="text-red-600 text-sm">Esse campo é obrigatório</span>}
+                        {errors.email?.type === 'pattern' && <span className="text-red-600 text-sm">Email inválido</span>}
+                    </div>
+                    <div className="flex flex-col mb-3">
+                        <label htmlFor="password" className="mb-2">Senha</label>
+                        <input
+                            className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-500 mb-2"
+                            type="password"
+                            id="password"
+                            {...register("password", { required: true, minLength: 6 })}
+                        />
+                        {errors.password && <span className="text-red-600 text-sm">Esse campo é obrigatório</span>}
+                        {errors.password?.type === 'minLength' && <span className="text-red-600 text-sm">A senha deve ter no mínimo 6 caracteres</span>}
+                        {errors.confirmPassword?.type === 'validate' && <span className="text-red-600 text-sm">As senhas não coincidem</span>}
+                    </div>
+                    <div className="flex flex-col mb-3">
+                        <label htmlFor="confirmPassword" className="mb-2">Confirme sua senha</label>
+                        <input
+                            className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-500 mb-2"
+                            type="password"
+                            id="confirmPassword"
+                            {...register("confirmPassword", { required: true, minLength: 6 })}
+                        />
+                        {errors.confirmPassword?.type === 'required' && <span className="text-red-600 text-sm">Esse campo é obrigatório</span>}
+                        {errors.confirmPassword?.type === 'minLength' && <span className="text-red-600 text-sm">A senha deve ter no mínimo 6 caracteres</span>}
+                        {errors.confirmPassword?.type === 'validate' && <span className="text-red-600 text-sm">As senhas não coincidem</span>}
 
-        >
-            <h1 className="text-3xl font-bold text-center">Crie sua conta</h1>
-            <hr className="my-5" />
+                    </div>
+                    <hr className="my-5" />
 
-            <form onSubmit={handleSubmit((data) => console.log(data))} >
-                <div className="flex flex-col">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" {...register("email", { required: true })} />
-                    {errors.email && <span>Esse campo é obrigatório</span>}
-                </div>
-                <div className="flex flex-col">
-                    <label htmlFor="password">Senha</label>
-                    <input type="password" id="password" {...register("password", { required: true })} />
-                    {errors.password && <span>Esse campo é obrigatório</span>}
-                </div>
-                <div className="flex flex-col">
-                    <label htmlFor="confirmPassword">Confirme sua senha</label>
-                    <input type="password" id="confirmPassword" {...register("confirmPassword", { required: true })} />
-                    {errors.confirmPassword && <span>Esse campo é obrigatório</span>}
-                </div>
-                <div className="flex justify-center">
-                    <button type="submit" className="p-5 bg-blue-500">
-                        Cadastrar
-                    </button>
-                </div>
-                <p className="text-center">
-                    Já tem uma conta? <Link href="/auth/signin">Faça login</Link>
-                </p>
-            </form>
+                    <div className="mb-5">
+                        <button type="submit" className="p-3 bg-blue-500 w-full rounded-lg text-white hover:bg-blue-600 transition">
+                            Cadastrar
+                        </button>
+                    </div>
+                    <p className="text-center">
+                        Já tem uma conta? <Link href="/auth/signin" className="text-blue-600">Faça login</Link>
+                    </p>
+                </form>
+            </div>
         </div>
 
     )
