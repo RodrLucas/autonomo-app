@@ -44,7 +44,7 @@ export default function SignInPage() {
                             id="password"
                             {...register("password", { required: true, minLength: 6 })}
                         />
-                        {errors.password && <span className="text-red-600 text-sm">Esse campo é obrigatório</span>}
+                        {errors.password?.type === 'required' && <span className="text-red-600 text-sm">Esse campo é obrigatório</span>}
                         {errors.password?.type === 'minLength' && <span className="text-red-600 text-sm">A senha deve ter no mínimo 6 caracteres</span>}
                         {errors.confirmPassword?.type === 'validate' && <span className="text-red-600 text-sm">As senhas não coincidem</span>}
                     </div>
