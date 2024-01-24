@@ -24,7 +24,7 @@ export default function Sidebar() {
             href="/"
             className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
           >
-            Autônomo SAAS
+            Autônomo APP
           </Link>
           <ul className="md:hidden items-center flex flex-wrap list-none">
             <li className="inline-block relative">
@@ -46,7 +46,7 @@ export default function Sidebar() {
                     href=""
                     className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                   >
-                    Autônomo SAAS
+                    Autônomo APP
                   </Link>
                 </div>
                 <div className="w-6/12 flex justify-end">
