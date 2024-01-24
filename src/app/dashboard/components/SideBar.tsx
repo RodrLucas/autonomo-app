@@ -1,13 +1,11 @@
 "use client";
-import React from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-import NotificationDropdown from "@/app/dashboard/components/NotificationDropdown";
-import UserDropdown from "@/app/dashboard/components/UserDropdown";
+import UserDropdown from "./UserDropdown";
 
 export default function Sidebar() {
-  const [collapseShow, setCollapseShow] = React.useState("hidden");
+  const [collapseShow, setCollapseShow] = useState("hidden");
   const pathName = usePathname();
 
   return (
@@ -22,18 +20,13 @@ export default function Sidebar() {
           >
             <i className="fas fa-bars"></i>
           </button>
-          {/* Brand */}
           <Link
             href="/"
             className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
           >
             Autônomo SAAS
           </Link>
-          {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
-            <li className="inline-block relative">
-              <NotificationDropdown />
-            </li>
             <li className="inline-block relative">
               <UserDropdown />
             </li>
@@ -53,7 +46,7 @@ export default function Sidebar() {
                     href=""
                     className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                   >
-                    Notus NextJS
+                    Autônomo SAAS
                   </Link>
                 </div>
                 <div className="w-6/12 flex justify-end">
@@ -67,23 +60,8 @@ export default function Sidebar() {
                 </div>
               </div>
             </div>
-            {/* Form */}
-            <form className="mt-6 mb-4 md:hidden">
-              <div className="mb-3 pt-0">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="px-3 py-2 h-12 border border-solid  border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
-                />
-              </div>
-            </form>
 
-            {/* Divider */}
             <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Admin Layout Pages
-            </h6>
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
