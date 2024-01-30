@@ -5,8 +5,15 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import ptBrLocale from "@fullcalendar/core/locales/pt-br";
+import { useDisclosure } from "@chakra-ui/react";
+import { DefaultModal } from "../../components/DefaultModal";
+import { DateSelectForm } from "./DateSelectModal";
+import { useState } from "react";
+import { IDateInfo } from "../types/DateInfo";
 
 export function MyCalendar() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedInfoDate, setSelectedInfoDate] = useState<IDateInfo>();
   const handleEventClick = (clickInfo: any) => {
     if (
       window.confirm(
@@ -17,40 +24,36 @@ export function MyCalendar() {
     }
   };
 
-  const handleDateSelect = (selectInfo: any) => {
-    let title = prompt("Please enter a new title for your event");
-    let calendarApi = selectInfo.view.calendar;
-    calendarApi.unselect(); // clear date selection
-    if (title) {
-      calendarApi.addEvent({
-        id: "",
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-      });
-    }
+  const handleDateSelect = (selectInfo: IDateInfo) => {
+    setSelectedInfoDate(selectInfo);
+    onOpen();
   };
 
   return (
     <div id="calendar" className="min-h-screen">
       <FullCalendar
+        locale={ptBrLocale}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{
-          left: "prev,next today",
-          right: "dayGridMonth,timeGridWeek,timeGridDay",
+          left: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
-        initialView="dayGridMonth"
+        initialView="timeGridWeek"
         editable={true}
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
         eventClick={handleEventClick}
-        select={handleDateSelect}
+        dateClick={handleDateSelect}
         height={1000}
-        dayHeaderFormat={{ weekday: "short", day: "numeric", omitCommas: true }}
-        locale={ptBrLocale}
+        dayHeaderFormat={{ weekday: "short", day: "numeric", month: 'short' }}
       />
+      <DefaultModal
+        isOpen={isOpen}
+        onClose={onClose}
+        title="Criando Atendimento"
+      >
+        <DateSelectForm dateInfo={selectedInfoDate} />
+      </DefaultModal>
     </div>
   );
 }
