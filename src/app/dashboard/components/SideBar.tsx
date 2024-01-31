@@ -67,10 +67,10 @@ export default function Sidebar() {
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
                 <Link
-                  href="/dashboard"
+                  href="/dashboard/agenda"
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (pathName.indexOf("/dashboard") !== -1
+                    (pathName.indexOf("/dashboard/agenda") !== -1
                       ? "text-blue-500 hover:text-lightBlue-600"
                       : "text-gray-700 hover:text-blueGray-500")
                   }
@@ -78,12 +78,12 @@ export default function Sidebar() {
                   <i
                     className={
                       "fas fa-tv mr-2 text-sm " +
-                      (pathName.indexOf("/dashboard") !== -1
+                      (pathName.indexOf("/dashboard/agenda") !== -1
                         ? "opacity-75"
                         : "text-gray-300")
                     }
                   ></i>
-                  Dashboard
+                  Agenda
                 </Link>
               </li>
               <li className="items-center">
@@ -104,7 +104,7 @@ export default function Sidebar() {
                         : "text-gray-300")
                     }
                   ></i>
-                  Teste
+                  Controle Financeiro
                 </Link>
               </li>
             </ul>
