@@ -1,5 +1,6 @@
 import {
   Button,
+  Divider,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -31,7 +32,7 @@ export function DefaultModal({
 
   return (
     <Modal
-      isCentered
+      size="xl"
       initialFocusRef={initialRef}
       finalFocusRef={finalRef}
       isOpen={isOpen}
@@ -40,8 +41,9 @@ export function DefaultModal({
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>
+        <Divider />
         <ModalCloseButton />
-        <ModalBody pb={6}>{children}</ModalBody>
+        <ModalBody>{children}</ModalBody>
         {footer && <ModalFooter>{footer.footerChildren}</ModalFooter>}
       </ModalContent>
     </Modal>

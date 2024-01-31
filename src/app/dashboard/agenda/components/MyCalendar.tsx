@@ -37,7 +37,7 @@ export function MyCalendar() {
         headerToolbar={{
           left: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
-        initialView="timeGridWeek"
+        initialView="dayGridMonth"
         editable={true}
         selectable={true}
         selectMirror={true}
