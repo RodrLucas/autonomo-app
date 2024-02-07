@@ -1,7 +1,12 @@
 import { IDateInfo } from "../types/DateInfo";
 import { ScheduleForm } from "./ScheduleForm/ScheduleForm";
 
-export function DateSelectForm({ dateInfo }: { dateInfo: IDateInfo | undefined }) {
+interface IDateSelectFormProps {
+  dateInfo: IDateInfo | undefined;
+
+}
+
+export function DateSelectForm({ dateInfo }: IDateSelectFormProps) {
   console.log('dateInfo DateSelectForm', dateInfo)
   return (
     <div>

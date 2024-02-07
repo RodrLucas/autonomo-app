@@ -1,15 +1,15 @@
 "use client";
 
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import ptBrLocale from "@fullcalendar/core/locales/pt-br";
 import { useDisclosure } from "@chakra-ui/react";
-import { DefaultModal } from "../../components/DefaultModal";
-import { DateSelectForm } from "./DateSelectModal";
+import ptBrLocale from "@fullcalendar/core/locales/pt-br";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import FullCalendar from "@fullcalendar/react";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import { useState } from "react";
+import { DefaultModal } from "../../components/DefaultModal";
 import { IDateInfo } from "../types/DateInfo";
+import { DateSelectForm } from "./DateSelectModal";
 
 export function MyCalendar() {
   const { isOpen, onOpen, onClose } = useDisclosure();

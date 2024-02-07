@@ -1,8 +1,10 @@
 "use client";
 
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import AsyncSelect from "react-select";
+import * as Yup from "yup";
+import MenuList from "./SelectButton";
 
 const scheduleFormSchema = Yup.object().shape({
   scheduleDate: Yup.date()
@@ -11,7 +13,15 @@ const scheduleFormSchema = Yup.object().shape({
   client: Yup.string().required()
 });
 
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
+];
+
 export function ScheduleForm() {
+  const [selectedOption, setSelectedOption] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -24,6 +34,10 @@ export function ScheduleForm() {
   const handleScheduleForm = (data: any) => {
     console.log(data);
   };
+
+  const handleSelectChange = (selectedOption: any) => {
+    setSelectedOption(selectedOption);
+  }
 
   return (
     <div>
@@ -61,33 +75,14 @@ export function ScheduleForm() {
           </div>
           <div className="w-full px-4 lg:w-11/12">
             <div className="relative mb-3 w-full">
-              <label
-                className="text-blueGray-600 mb-2 block text-xs font-bold uppercase"
-                htmlFor="grid-password"
-              >
-                Prestador de serviço
-              </label>
-              <input
-                // {...register("")}
-                placeholder="Prestador de serviço"
-                type="text"
-                className="text-blueGray-600 w-full rounded border-0 bg-white px-3 py-3 text-sm shadow transition-all duration-150 ease-linear"
-              />
-            </div>
-          </div>
-          <div className="w-full px-4 lg:w-11/12">
-            <div className="relative mb-3 w-full">
-              <label
-                className="text-blueGray-600 mb-2 block text-xs font-bold uppercase"
-                htmlFor="grid-password"
-              >
+              <label className="text-blueGray-600 mb-2 block text-xs font-bold uppercase">
                 Cliente
               </label>
-              <input
-                // {...register("")}
-                placeholder="Cliente"
-                type="text"
-                className="text-blueGray-600 w-full rounded border-0 bg-white px-3 py-3 text-sm shadow transition-all duration-150 ease-linear"
+              <AsyncSelect
+                defaultValue={selectedOption}
+                onChange={handleSelectChange}
+                options={options}
+                components={{ MenuList }}
               />
             </div>
           </div>
