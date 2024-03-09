@@ -11,15 +11,9 @@ interface FormProps {
 export default function Form({
     authType
 }: FormProps) {
-    const { register, handleSubmit, formState: { errors }, getValues, setError } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const onSubmit = () => {
-        const { password, confirmPassword } = getValues();
-        if (password !== confirmPassword) {
-            setError('confirmPassword', { type: 'validate' });
-            return;
-        }
-
         console.log('Cadastro realizado com sucesso');
     }
 
@@ -40,7 +34,7 @@ export default function Form({
                 <InputForm
                     type="email"
                     label="Email"
-                    register={register("email", { required: true, maxLength: 30, pattern: /^\S+@\S+$/i })}
+                    register={register("email", { required: true, pattern: /^\S+@\S+$/i })}
                     error={errors.email}
                 />
             </div>
@@ -56,7 +50,14 @@ export default function Form({
                 <InputForm
                     type="password"
                     label="Confirmar senha"
-                    register={register("confirmPassword", { required: true, minLength: 6 })}
+                    register={register("confirmPassword", { 
+                        required: true, 
+                        minLength: 6, 
+                        validate: (password: string) => {
+                        if (watch('password') != password) {
+                          return "";
+                        }
+                      }, })}
                     error={errors.confirmPassword}
                 />
             </div>
