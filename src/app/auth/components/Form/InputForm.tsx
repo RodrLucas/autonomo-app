@@ -22,8 +22,6 @@ export default function InputForm({
                 {...register}
             />
             {error?.type === 'required' && <span className="text-red-600 text-sm">Esse campo é obrigatório</span>}
-
-            
             {error?.type === 'minLength' && <span className="text-red-600 text-sm">Esse campo deve ter no mínimo 6 caracteres</span>}
             {error?.type === 'maxLength' && <span className="text-red-600 text-sm">Esse campo deve ter no máximo 30 caracteres</span>}
             {error?.type === 'validate' && <span className="text-red-600 text-sm">As senhas não coincidem</span>}
